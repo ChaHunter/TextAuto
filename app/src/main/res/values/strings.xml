@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TextAuto</string>
+    <string name="addtexttitle">Add a Text Request</string>
+    <string name="StringTextHint">Type Text here</string>
+    <string name="Confirm">Confirm\n</string>
+    <string name="AddConditionButton">Add a Condition</string>
+</resources>

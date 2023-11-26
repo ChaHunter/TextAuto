@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/makeText"
+        android:name="edu.msoe.textauto.MakeText"
+        android:label="add_text"
+        tools:layout="@layout/add_text" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="edu.msoe.textauto.MainFragment"
+        android:label="mainscreen"
+        tools:layout="@layout/mainscreen" >
+        <action
+            android:id="@+id/action_mainFragment_to_makeText"
+            app:destination="@id/makeText" />
+    </fragment>
+</navigation>
