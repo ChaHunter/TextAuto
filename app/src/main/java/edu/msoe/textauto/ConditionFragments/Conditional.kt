@@ -9,5 +9,6 @@ data class Conditional (
     @PrimaryKey
     val id : UUID,
     val conditionName : ConditionCategory,
-    val data : List<String>
+    val data : List<String>,
+    val remind : UUID
 )

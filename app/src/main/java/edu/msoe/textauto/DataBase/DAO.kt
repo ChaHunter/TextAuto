@@ -3,6 +3,7 @@ package edu.msoe.textauto.DataBase
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import edu.msoe.textauto.ConditionFragments.Conditional
 import edu.msoe.textauto.Remind
 import java.util.UUID
 
@@ -22,4 +23,22 @@ interface DAO {
 
     @Query("Delete FROM Remind WHERE id=(:id)")
     fun deleteRemind(id: UUID)
+
+    @Query("SELECT * FROM Conditional")
+    fun getConditionals(): List<Conditional>
+
+    @Query("SELECT * FROM Conditional WHERE id=(:id)")
+    fun getConditional(id: UUID): Conditional
+
+    @Query("SELECT * FROM Conditional WHERE remind=(:id)")
+    fun getConditionalFromRemind(id: UUID): List<Conditional>
+
+    @Query("Delete FROM Conditional")
+    fun deleteConditional()
+
+    @Insert
+    fun addConditional(condtional: Conditional)
+
+    @Query("Delete FROM Conditional WHERE id=(:id)")
+    fun deleteConditional(id: UUID)
 }

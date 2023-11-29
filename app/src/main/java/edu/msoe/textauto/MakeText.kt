@@ -12,17 +12,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.msoe.textauto.databinding.AddTextBinding
-import java.net.URI
 import android.provider.ContactsContract
 import android.telephony.SmsManager
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import edu.msoe.textauto.DataBase.TextRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,6 +32,7 @@ class MakeText : Fragment() {
             "Cannot access binding because it is null..."
         }
     private val dataViewModel : TextViewModel by viewModels()
+    private val fragViewModel : MakeTextViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +56,7 @@ class MakeText : Fragment() {
         }
         binding.AddCondition.setOnClickListener(){
             findNavController().navigate(
-                MakeTextDirections.actionMakeTextToSelectConditionFragment()
+                MakeTextDirections.actionMakeTextToSelectConditionFragment(fragViewModel.remindID)
             )
         }
         binding.Confirm.setOnClickListener(){
@@ -71,9 +68,21 @@ class MakeText : Fragment() {
             sms.sendTextMessage(rPhoneNumber, null, binding.TextInput.text.toString(),
                 null, null)
             CoroutineScope(Dispatchers.IO).launch {
-                dataViewModel.getRepository().addRemind(Remind(UUID.randomUUID(), rPhoneNumber, binding.TextInput.text.toString()))
+                dataViewModel.getRepository().addRemind(Remind(UUID.randomUUID(), rPhoneNumber,
+                    binding.TextInput.text.toString()))
 
                 parentFragmentManager.popBackStack()
+            }
+        }
+
+
+
+
+        setFragmentResultListener("TEST"){s,b ->
+            CoroutineScope(Dispatchers.IO).launch {
+                val condition = dataViewModel.getRepository().getConditional(
+                    UUID.fromString(b.getString("id")))
+                fragViewModel.conditions.add(condition)
             }
         }
     }

@@ -31,9 +31,16 @@
             android:id="@+id/action_selectConditionFragment_to_timeFragment"
             app:destination="@id/timeFragment"
             app:popUpTo="@id/makeText" />
+        <argument
+            android:name="id"
+            app:argType="java.util.UUID" />
     </fragment>
     <fragment
         android:id="@+id/timeFragment"
         android:name="edu.msoe.textauto.ConditionFragments.TimeFragment"
-        android:label="TimeFragment" />
+        android:label="TimeFragment" >
+        <argument
+            android:name="id"
+            app:argType="java.util.UUID" />
+    </fragment>
 </navigation>

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.msoe.textauto.TextViewModel
@@ -16,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class SelectConditionFragment: Fragment() {
     private var _binding: ConditionSelectViewBinding? = null
@@ -24,6 +26,7 @@ class SelectConditionFragment: Fragment() {
             "Cannot access binding because it is null..."
         }
     private val dataViewModel : TextViewModel by viewModels()
+    private val args: SelectConditionFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,9 +46,9 @@ class SelectConditionFragment: Fragment() {
         val recyclerView: RecyclerView = binding.recyclerview
         CoroutineScope(Dispatchers.IO).launch {
             //TextRepository.get().addRemind(Remind(UUID.randomUUID(),"Bob", " Hello"))
-            val adapter = ConditionSelectAdapter(){navDirection:NavDirections ->
+            val adapter = ConditionSelectAdapter(){navDirection:(UUID) -> NavDirections ->
                 findNavController().navigate(
-                    navDirection
+                    navDirection(args.id)
                 )
             }
             withContext(Dispatchers.Main) {

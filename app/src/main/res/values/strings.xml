@@ -4,4 +4,6 @@
     <string name="StringTextHint">Type Text here</string>
     <string name="Confirm">Confirm\n</string>
     <string name="AddConditionButton">Add a Condition</string>
+    <string name="PickDate">Pick a Date</string>
+    <string name="PickTime">Pick a Time</string>
 </resources>

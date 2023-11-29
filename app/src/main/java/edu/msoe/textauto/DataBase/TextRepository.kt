@@ -2,6 +2,7 @@ package edu.msoe.textauto.DataBase
 
 import android.content.Context
 import androidx.room.Room
+import edu.msoe.textauto.ConditionFragments.Conditional
 import edu.msoe.textauto.Remind
 import java.util.UUID
 import java.util.concurrent.ExecutorService
@@ -43,5 +44,12 @@ class TextRepository private constructor(context: Context) {
     suspend fun getRemind(id: UUID): Remind = database.classDao().getRemind(id)
     suspend fun addRemind(remind: Remind) = database.classDao().addRemind(remind)
     suspend fun removeRemind(id:UUID) = database.classDao().deleteRemind(id)
+    fun getConditionals(): List<Conditional> = database.classDao().getConditionals()
 
+    suspend fun getConditional(id: UUID): Conditional = database.classDao().getConditional(id)
+    suspend fun getConditionalFromRemind(id: UUID): List<Conditional> = database.classDao().getConditionalFromRemind(id)
+
+    suspend fun addConditional(conditional : Conditional) = database.classDao().addConditional(conditional)
+
+    suspend fun removeConditional(id: UUID) = database.classDao().deleteConditional(id)
 }
