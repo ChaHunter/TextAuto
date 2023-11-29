@@ -19,6 +19,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.loader.content.CursorLoader
+import androidx.navigation.fragment.findNavController
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import edu.msoe.textauto.DataBase.TextRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,7 +57,16 @@ class MakeText : Fragment() {
             }, null)
             resultLauncher.launch(intent)
         }
+        binding.AddCondition.setOnClickListener(){
+            findNavController().navigate(
+                MakeTextDirections.actionMakeTextToSelectConditionFragment()
+            )
+        }
         binding.Confirm.setOnClickListener(){
+
+            val workrequest = OneTimeWorkRequest.Builder(PollWorker::class.java).build()
+            WorkManager.getInstance(requireContext()).enqueue(workrequest)
+
             var sms : SmsManager  = SmsManager.getDefault()
             sms.sendTextMessage(rPhoneNumber, null, binding.TextInput.text.toString(),
                 null, null)

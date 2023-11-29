@@ -9,7 +9,11 @@
         android:id="@+id/makeText"
         android:name="edu.msoe.textauto.MakeText"
         android:label="add_text"
-        tools:layout="@layout/add_text" />
+        tools:layout="@layout/add_text" >
+        <action
+            android:id="@+id/action_makeText_to_selectConditionFragment"
+            app:destination="@id/selectConditionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="edu.msoe.textauto.MainFragment"
@@ -19,4 +23,17 @@
             android:id="@+id/action_mainFragment_to_makeText"
             app:destination="@id/makeText" />
     </fragment>
+    <fragment
+        android:id="@+id/selectConditionFragment"
+        android:name="edu.msoe.textauto.ConditionFragments.SelectConditionFragment"
+        android:label="SelectConditionFragment" >
+        <action
+            android:id="@+id/action_selectConditionFragment_to_timeFragment"
+            app:destination="@id/timeFragment"
+            app:popUpTo="@id/makeText" />
+    </fragment>
+    <fragment
+        android:id="@+id/timeFragment"
+        android:name="edu.msoe.textauto.ConditionFragments.TimeFragment"
+        android:label="TimeFragment" />
 </navigation>

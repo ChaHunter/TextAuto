@@ -5,19 +5,12 @@
  * Hunter Cha
  * 10/9/2023
  */
-package edu.msoe.textauto
+package edu.msoe.textauto.ConditionFragments
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import edu.msoe.textauto.databinding.ConditionalRecyclerViewBinding
-import edu.msoe.textauto.databinding.MaintextrecyclerviewBinding
-import java.util.UUID
 
 
 /**
@@ -29,7 +22,7 @@ class ConditionalViewHolder (
         condition: Conditional
     ) {
 
-        binding.conditionName.text = condition.toString()
+        binding.conditionName.text = condition.conditionName.name
 
 
     }
