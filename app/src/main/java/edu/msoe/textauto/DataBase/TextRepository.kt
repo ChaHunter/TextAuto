@@ -31,6 +31,7 @@ class TextRepository private constructor(context: Context) {
             if (INSTANCE == null) {
                 INSTANCE = TextRepository(context)
             }
+
         }
 
 

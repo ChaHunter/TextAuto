@@ -17,12 +17,17 @@ import android.telephony.SmsManager
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.work.OneTimeWorkRequest
+import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
+import androidx.work.workDataOf
+import edu.msoe.textauto.ConditionFragments.TimeFragmentArgs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.UUID
+import java.util.concurrent.TimeUnit
 
 class MakeText : Fragment() {
 
@@ -31,6 +36,7 @@ class MakeText : Fragment() {
         get() = checkNotNull(_binding) {
             "Cannot access binding because it is null..."
         }
+    private val args: MakeTextArgs by navArgs()
     private val dataViewModel : TextViewModel by viewModels()
     private val fragViewModel : MakeTextViewModel by viewModels()
 
@@ -54,23 +60,19 @@ class MakeText : Fragment() {
             }, null)
             resultLauncher.launch(intent)
         }
+        binding.recyclerView.adapter = MakeTextConditionRecyclerViewAdapter(fragViewModel.conditions)
         binding.AddCondition.setOnClickListener(){
             findNavController().navigate(
-                MakeTextDirections.actionMakeTextToSelectConditionFragment(fragViewModel.remindID)
+                MakeTextDirections.actionMakeTextToSelectConditionFragment(args.id)
             )
         }
         binding.Confirm.setOnClickListener(){
+            val remind = Remind(args.id, rPhoneNumber,
+                binding.TextInput.text.toString())
 
-            val workrequest = OneTimeWorkRequest.Builder(PollWorker::class.java).build()
-            WorkManager.getInstance(requireContext()).enqueue(workrequest)
-
-            var sms : SmsManager  = SmsManager.getDefault()
-            sms.sendTextMessage(rPhoneNumber, null, binding.TextInput.text.toString(),
-                null, null)
             CoroutineScope(Dispatchers.IO).launch {
-                dataViewModel.getRepository().addRemind(Remind(UUID.randomUUID(), rPhoneNumber,
-                    binding.TextInput.text.toString()))
-
+                dataViewModel.getRepository().addRemind(remind)
+                startRequest(remind)
                 parentFragmentManager.popBackStack()
             }
         }
@@ -83,8 +85,22 @@ class MakeText : Fragment() {
                 val condition = dataViewModel.getRepository().getConditional(
                     UUID.fromString(b.getString("id")))
                 fragViewModel.conditions.add(condition)
+                val adapter = binding.recyclerView.adapter
+                adapter?.notifyItemInserted(0)
             }
         }
+    }
+
+    private fun startRequest(remind :Remind) {
+        val workrequest = PeriodicWorkRequest.Builder(PollWorker::class.java,
+            PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS,
+            PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS, TimeUnit.MILLISECONDS
+            ).setInputData(
+            workDataOf("id" to remind.id.toString())).addTag(remind.id.toString()).build()
+//        val workrequest = OneTimeWorkRequest.Builder(PollWorker::class.java).setInputData(
+//            workDataOf("id" to remind.id.toString())).addTag(remind.workTag.toString()).build()
+        WorkManager.getInstance(requireContext()).enqueue(workrequest)
+
     }
 
     lateinit var rPhoneNumber : String

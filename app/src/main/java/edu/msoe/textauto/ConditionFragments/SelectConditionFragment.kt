@@ -46,9 +46,9 @@ class SelectConditionFragment: Fragment() {
         val recyclerView: RecyclerView = binding.recyclerview
         CoroutineScope(Dispatchers.IO).launch {
             //TextRepository.get().addRemind(Remind(UUID.randomUUID(),"Bob", " Hello"))
-            val adapter = ConditionSelectAdapter(){navDirection:(UUID) -> NavDirections ->
+            val adapter = ConditionSelectAdapter(args.id){navDirection:NavDirections ->
                 findNavController().navigate(
-                    navDirection(args.id)
+                    navDirection
                 )
             }
             withContext(Dispatchers.Main) {

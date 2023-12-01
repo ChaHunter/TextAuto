@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import edu.msoe.textauto.TextViewModel
 import edu.msoe.textauto.databinding.ConditionFragmentTimeBinding
@@ -73,7 +74,7 @@ class TimeFragment : Fragment(){
                 timeViewModel.c.get(Calendar.MONTH).toString(),
                 timeViewModel.c.get(Calendar.DAY_OF_MONTH).toString()
             )
-            val newCondition = Conditional(id, ConditionCategory.Time, data, UUID.randomUUID())
+            val newCondition = Conditional(id, ConditionCategory.Time, data, args.id)
             CoroutineScope(Dispatchers.IO).launch {
                 dataViewModel.getRepository().addConditional(newCondition)
             }
@@ -82,7 +83,9 @@ class TimeFragment : Fragment(){
             setFragmentResult(
                 "TEST", bundleOf(
                     "id" to id.toString()))
-            parentFragmentManager.popBackStack()
+            findNavController().navigate(
+            TimeFragmentDirections.actionTimeFragmentToMakeText(args.id)
+            )
         }
         binding.Picktime.setOnClickListener(){
             TimePickerFragment(timeViewModel.c).show(parentFragmentManager, "TimePicker")

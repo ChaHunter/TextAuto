@@ -15,6 +15,7 @@ import android.widget.ListAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import edu.msoe.textauto.ConditionFragments.Conditional
 import edu.msoe.textauto.databinding.MaintextrecyclerviewBinding
 import java.util.UUID
 
@@ -25,13 +26,21 @@ import java.util.UUID
 class MainTextViewHolder (
     private val binding: MaintextrecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
     fun bind(
-        remind: Remind
+        remind: Remind,
+        //conditions : List<Conditional>
     ) {
 
         binding.name.text = remind.contact
 
         binding.textMessage.text = remind.text
-
+        //binding.recyclerView.adapter = MakeTextConditionRecyclerViewAdapter(conditions)
+        binding.root.setOnClickListener(){
+            if (binding.recyclerView.visibility == View.GONE) {
+                binding.recyclerView.visibility = View.VISIBLE
+            } else if (binding.recyclerView.visibility == View.VISIBLE){
+                binding.recyclerView.visibility = View.GONE
+            }
+        }
     }
 }
 
@@ -39,7 +48,8 @@ class MainTextViewHolder (
  * Adapter class for students
  */
 class MainTextViewAdapter(
-    private val reminders: List<Remind>
+    private val reminders: List<Remind>,
+    private val conditions: List<List<Conditional>>
 ) : RecyclerView.Adapter<MainTextViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -54,6 +64,7 @@ class MainTextViewAdapter(
     override fun onBindViewHolder(holder: MainTextViewHolder, position: Int) {
 
         holder.bind(reminders[position])
+            //, conditions[position])
     }
 
     override fun getItemCount() = reminders.size

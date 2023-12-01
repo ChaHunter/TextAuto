@@ -6,22 +6,24 @@ import androidx.navigation.NavDirections
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import edu.msoe.textauto.databinding.ConditionSelectRecyclerViewBinding
+import java.util.UUID
 
 
 /**
  * ViewHolder for Students recycler items
  */
 class  ConditionSelectViewHolder (
-    private val binding: ConditionSelectRecyclerViewBinding,
+    private val binding: ConditionSelectRecyclerViewBinding
     ): RecyclerView.ViewHolder(binding.root) {
     fun bind(
         condition: ConditionCategory,
-        onClick: (NavDirections) -> Unit
+        onClick: (NavDirections) -> Unit,
+        id: UUID
     ) {
         binding.ConditionName.text = condition.outName
         binding.ConditionDescription.text = condition.description
         binding.root.setOnClickListener(){
-            onClick(condition.fragmentLocation)
+            onClick(condition.fragmentLocation(id))
         }
     }
 }
@@ -29,7 +31,9 @@ class  ConditionSelectViewHolder (
 /**
  * Adapter class for students
  */
-class ConditionSelectAdapter(val param: (NavDirections) -> Unit) : RecyclerView.Adapter<ConditionSelectViewHolder>() {
+class ConditionSelectAdapter(val id : UUID,
+                             val param: (NavDirections) -> Unit
+    ) : RecyclerView.Adapter<ConditionSelectViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -41,7 +45,7 @@ class ConditionSelectAdapter(val param: (NavDirections) -> Unit) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ConditionSelectViewHolder, position: Int) {
-        holder.bind(ConditionCategory.values()[position], param)
+        holder.bind(ConditionCategory.values()[position], param, id)
     }
 
     override fun getItemCount() = ConditionCategory.values().size

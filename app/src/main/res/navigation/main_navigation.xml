@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_makeText_to_selectConditionFragment"
             app:destination="@id/selectConditionFragment" />
+        <argument
+            android:name="id"
+            app:argType="java.util.UUID" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -30,7 +33,8 @@
         <action
             android:id="@+id/action_selectConditionFragment_to_timeFragment"
             app:destination="@id/timeFragment"
-            app:popUpTo="@id/makeText" />
+            app:popUpTo="@id/makeText"
+            app:popUpToInclusive="false" />
         <argument
             android:name="id"
             app:argType="java.util.UUID" />
@@ -42,5 +46,9 @@
         <argument
             android:name="id"
             app:argType="java.util.UUID" />
+        <action
+            android:id="@+id/action_timeFragment_to_makeText"
+            app:destination="@id/makeText"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

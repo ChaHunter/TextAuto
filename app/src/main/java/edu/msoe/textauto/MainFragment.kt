@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import edu.msoe.textauto.ConditionFragments.Conditional
 import edu.msoe.textauto.DataBase.TextRepository
 
 import edu.msoe.textauto.databinding.MainscreenBinding
@@ -45,14 +46,17 @@ class MainFragment : Fragment() {
         val recyclerView: RecyclerView = binding.TextViews
         CoroutineScope(Dispatchers.IO).launch {
             //TextRepository.get().addRemind(Remind(UUID.randomUUID(),"Bob", " Hello"))
-            val adapter = MainTextViewAdapter(dataViewModel.getRepository().getReminds())
+            val reminds = dataViewModel.getRepository().getReminds()
+            val conditions = mutableListOf<List<Conditional>>()
+            reminds.forEach { r -> dataViewModel.getRepository().getConditionalFromRemind(r.id) }
+            val adapter = MainTextViewAdapter(reminds, conditions)
             withContext(Dispatchers.Main) {
                 recyclerView.adapter = adapter
             }
         }
         binding.addTextButton.setOnClickListener {
             findNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToMakeText()
+                MainFragmentDirections.actionMainFragmentToMakeText(UUID.randomUUID())
             )
         }
     }
