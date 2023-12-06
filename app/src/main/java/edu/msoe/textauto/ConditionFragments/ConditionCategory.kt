@@ -6,7 +6,8 @@ import java.util.UUID
 
 enum class ConditionCategory(val outName: String,
                              val description: String,
-                             val fragmentLocation: (UUID) -> NavDirections
+                             val fragmentLocation: (UUID) -> NavDirections,
+                            val pollWorker:
     )  {
     Time("Time", "Triggers when a specific time has passed",
         fun(id): NavDirections{ return SelectConditionFragmentDirections.actionSelectConditionFragmentToTimeFragment(id) }),

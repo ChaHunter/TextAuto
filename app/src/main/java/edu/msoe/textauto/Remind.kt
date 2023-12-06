@@ -10,6 +10,6 @@ data class Remind (
     @PrimaryKey
     val id : UUID,
     val contact : String,
-    val text : String,
+    val text : String
     
 )
