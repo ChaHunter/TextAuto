@@ -46,9 +46,5 @@
         <argument
             android:name="id"
             app:argType="java.util.UUID" />
-        <action
-            android:id="@+id/action_timeFragment_to_makeText"
-            app:destination="@id/makeText"
-            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

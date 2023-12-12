@@ -10,5 +10,6 @@ data class Conditional (
     val id : UUID,
     val conditionName : ConditionCategory,
     val data : List<String>,
-    val remind : UUID
+    val remind : UUID,
+    val complete : Boolean
 )

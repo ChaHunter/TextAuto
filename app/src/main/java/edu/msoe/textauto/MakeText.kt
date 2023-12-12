@@ -22,7 +22,9 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import androidx.work.workDataOf
+import edu.msoe.textauto.ConditionFragments.Conditional
 import edu.msoe.textauto.ConditionFragments.TimeFragmentArgs
+import edu.msoe.textauto.ConditionFragments.TimePollWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -91,15 +93,19 @@ class MakeText : Fragment() {
         }
     }
 
-    private fun startRequest(remind :Remind) {
-        val workrequest = PeriodicWorkRequest.Builder(PollWorker::class.java,
+    private fun startRequest(remind :Remind, conditions:List<Conditional>) {
+        val p = PeriodicWorkRequest.Builder(PollWorker::class.java,
             PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS,
             PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS, TimeUnit.MILLISECONDS
-            ).setInputData(
-            workDataOf("id" to remind.id.toString())).addTag(remind.id.toString()).build()
-//        val workrequest = OneTimeWorkRequest.Builder(PollWorker::class.java).setInputData(
-//            workDataOf("id" to remind.id.toString())).addTag(remind.workTag.toString()).build()
-        WorkManager.getInstance(requireContext()).enqueue(workrequest)
+        )
+        val workrequest = OneTimeWorkRequest.Builder(PollWorker::class.java).setInputData(
+            workDataOf("remindid" to remind.id.toString())).addTag(remind.id.toString()).build()
+        for (condition in conditions) {
+            val conditionRequest = TimePollWorker.build().setInputData(
+            workDataOf("id" to condition.id.toString())).addTag(condition.id.toString()).build()
+            WorkManager.getInstance(requireContext()).beginWith(conditionRequest).then(workrequest).enqueue()
+        }
+
 
     }
 

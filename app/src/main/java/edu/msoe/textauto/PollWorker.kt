@@ -21,7 +21,7 @@ class PollWorker (
         override suspend fun doWork(): Result {
 
             val repo = TextRepository.get()
-            val id = UUID.fromString(inputData.getString("id"))
+            val id = UUID.fromString(inputData.getString("remindid"))
 
             val remind = repo.getRemind(id)
             val conditionals = repo.getConditionalFromRemind(remind.id)
@@ -54,7 +54,7 @@ class PollWorker (
                 (ConditionCategory.Time) -> {
                     val baseC = Calendar.getInstance()
                     val conditionC = Calendar.getInstance()
-                    conditionC.set(Calendar.HOUR ,Integer.parseInt(condition.data.get(0)))
+                    conditionC.set(Calendar.HOUR_OF_DAY ,Integer.parseInt(condition.data.get(0)))
                     conditionC.set(Calendar.MINUTE ,Integer.parseInt(condition.data.get(1)))
                     conditionC.set(Calendar.YEAR ,Integer.parseInt(condition.data.get(2)))
                     conditionC.set(Calendar.MONTH ,Integer.parseInt(condition.data.get(3)))

@@ -46,7 +46,7 @@ class TimeFragment : Fragment(){
         setFragmentResultListener(TimePickerFragment.TIMEKEY){s, b ->
             val h = b.getInt(TimePickerFragment.HOURKEY)
             val m = b.getInt(TimePickerFragment.MINUTEKEY)
-            timeViewModel.c.set(Calendar.HOUR, h)
+            timeViewModel.c.set(Calendar.HOUR_OF_DAY, h)
             timeViewModel.c.set(Calendar.MINUTE, m)
             binding.TimeText.text = "Hour: "+h+" Minute: "+m
         }
@@ -68,13 +68,13 @@ class TimeFragment : Fragment(){
 
         binding.confirm.setOnClickListener(){
             val id = UUID.randomUUID()
-            val data = listOf(timeViewModel.c.get(Calendar.HOUR).toString(),
+            val data = listOf(timeViewModel.c.get(Calendar.HOUR_OF_DAY).toString(),
                 timeViewModel.c.get(Calendar.MINUTE).toString(),
                 timeViewModel.c.get(Calendar.YEAR).toString(),
                 timeViewModel.c.get(Calendar.MONTH).toString(),
                 timeViewModel.c.get(Calendar.DAY_OF_MONTH).toString()
             )
-            val newCondition = Conditional(id, ConditionCategory.Time, data, args.id)
+            val newCondition = Conditional(id, ConditionCategory.Time, data, args.id, false)
             CoroutineScope(Dispatchers.IO).launch {
                 dataViewModel.getRepository().addConditional(newCondition)
             }
@@ -83,9 +83,7 @@ class TimeFragment : Fragment(){
             setFragmentResult(
                 "TEST", bundleOf(
                     "id" to id.toString()))
-            findNavController().navigate(
-            TimeFragmentDirections.actionTimeFragmentToMakeText(args.id)
-            )
+            parentFragmentManager.popBackStack()
         }
         binding.Picktime.setOnClickListener(){
             TimePickerFragment(timeViewModel.c).show(parentFragmentManager, "TimePicker")
@@ -101,7 +99,7 @@ class TimeFragment : Fragment(){
 
 class TimePickerFragment(val c : Calendar) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return TimePickerDialog(activity, this, c.get(Calendar.HOUR),
+        return TimePickerDialog(activity, this, c.get(Calendar.HOUR_OF_DAY),
             c.get(Calendar.MINUTE), DateFormat.is24HourFormat(activity))
 
     }

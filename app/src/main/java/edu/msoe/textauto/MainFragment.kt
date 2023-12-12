@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
             //TextRepository.get().addRemind(Remind(UUID.randomUUID(),"Bob", " Hello"))
             val reminds = dataViewModel.getRepository().getReminds()
             val conditions = mutableListOf<List<Conditional>>()
-            reminds.forEach { r -> dataViewModel.getRepository().getConditionalFromRemind(r.id) }
+            reminds.forEach { r -> conditions.add(dataViewModel.getRepository().getConditionalFromRemind(r.id)) }
             val adapter = MainTextViewAdapter(reminds, conditions)
             withContext(Dispatchers.Main) {
                 recyclerView.adapter = adapter
