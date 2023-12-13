@@ -74,7 +74,7 @@ class MakeText : Fragment() {
 
             CoroutineScope(Dispatchers.IO).launch {
                 dataViewModel.getRepository().addRemind(remind)
-                startRequest(remind)
+                startRequest(remind, fragViewModel.conditions)
                 parentFragmentManager.popBackStack()
             }
         }
@@ -101,7 +101,7 @@ class MakeText : Fragment() {
         val workrequest = OneTimeWorkRequest.Builder(PollWorker::class.java).setInputData(
             workDataOf("remindid" to remind.id.toString())).addTag(remind.id.toString()).build()
         for (condition in conditions) {
-            val conditionRequest = TimePollWorker.build().setInputData(
+            val conditionRequest = TimePollWorker.build(condition).setInputData(
             workDataOf("id" to condition.id.toString())).addTag(condition.id.toString()).build()
             WorkManager.getInstance(requireContext()).beginWith(conditionRequest).then(workrequest).enqueue()
         }

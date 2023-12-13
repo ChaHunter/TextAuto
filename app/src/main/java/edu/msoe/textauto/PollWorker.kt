@@ -19,7 +19,7 @@ class PollWorker (
 
 
         override suspend fun doWork(): Result {
-
+            TextRepository.initialize(context)
             val repo = TextRepository.get()
             val id = UUID.fromString(inputData.getString("remindid"))
 
@@ -27,7 +27,7 @@ class PollWorker (
             val conditionals = repo.getConditionalFromRemind(remind.id)
             var allTrue = true
             for (conditional in conditionals) {
-                if (!checkConditional(conditional)){
+                if (!conditional.complete){
                     allTrue = false
                 }
             }

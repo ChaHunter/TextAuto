@@ -20,9 +20,7 @@ enum class ConditionCategory(val outName: String,
     ),
     RecievedMessage("Recieved Message", "Triggers when you recieve a message",
         fun(id): NavDirections{return SelectConditionFragmentDirections.actionSelectConditionFragmentToTimeFragment(id) }
-    ),
-    Pizza("YES", "Not workin",
-        fun(id): NavDirections{ return SelectConditionFragmentDirections.actionSelectConditionFragmentToTimeFragment(id) });
+    );
 
     companion object{
         //Not sure to use the strategy pattern here or not.
@@ -35,9 +33,6 @@ enum class ConditionCategory(val outName: String,
                 }
                 ConditionCategory.RecievedMessage ->{
                     return "Receiving From" + c.data[0]
-                }
-                ConditionCategory.Pizza ->{
-                    return "Not Possible"
                 }
 
                 else -> {return "Error item does not have a description"}

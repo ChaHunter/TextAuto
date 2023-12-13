@@ -2,6 +2,7 @@ package edu.msoe.textauto.DataBase
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import edu.msoe.textauto.ConditionFragments.Conditional
 import edu.msoe.textauto.Remind
@@ -18,7 +19,7 @@ interface DAO {
     @Query("Delete FROM Remind")
     fun deleteRemind()
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRemind(remind: Remind)
 
     @Query("Delete FROM Remind WHERE id=(:id)")
@@ -36,7 +37,7 @@ interface DAO {
     @Query("Delete FROM Conditional")
     fun deleteConditional()
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addConditional(condtional: Conditional)
 
     @Query("Delete FROM Conditional WHERE id=(:id)")

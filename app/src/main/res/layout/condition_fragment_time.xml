@@ -23,8 +23,8 @@
         android:id="@+id/Datepick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="304dp"
         android:text="@string/PickDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,8 +33,8 @@
         android:id="@+id/Picktime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="144dp"
         android:text="@string/PickTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,8 +43,8 @@
         android:id="@+id/DateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="62dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="244dp"
         android:text="Date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,8 +53,8 @@
         android:id="@+id/TimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="62dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="204dp"
         android:text="Time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
