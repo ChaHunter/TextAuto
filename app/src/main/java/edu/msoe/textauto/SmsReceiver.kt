@@ -26,7 +26,7 @@ class SmsReceiver : BroadcastReceiver() {
          Log.println(Log.INFO, "SMSRecieve", "Working")
         if (intent?.action.equals(SMS_RECEIVED)){
             val messages = Telephony.Sms.Intents.getMessagesFromIntent(intent)
-            messages.forEach { s -> Log.println(Log.INFO, "SMSRecieve", s.serviceCenterAddress.toString()) }
+            //messages.forEach { s -> Log.println(Log.INFO, "SMSRecieve", s.serviceCenterAddress.toString()) }
             Log.println(Log.INFO, "SMSRecieve", "Recieved")
             if (context != null) {
                 TextRepository.initialize(context)
@@ -39,8 +39,7 @@ class SmsReceiver : BroadcastReceiver() {
                     if (!condition.complete and (condition.conditionName == ConditionCategory.RecievedMessage)) {
                         messages.forEach { s ->
                             val number =  condition.data[0].split(" ")[1].replace("-", "")
-                            if (s.serviceCenterAddress.toString() == number) {
-
+                            if (s.originatingAddress.toString() == number) {
                                 repo.addConditional(
                                     Conditional(
                                         condition.id, condition.conditionName,

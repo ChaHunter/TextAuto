@@ -5,6 +5,7 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.constraintlayout.widget.Constraints
+import androidx.core.content.ContextCompat
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import edu.msoe.textauto.DataBase.TextRepository
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         filter.addAction(SmsReceiver.SMS_RECEIVED)
         val reciever = SmsReceiver()
         registerReceiver(reciever, filter)
+
 
     }
 }

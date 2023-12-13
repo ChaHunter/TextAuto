@@ -35,6 +35,9 @@ class PollWorker (
             if (allTrue) {
                 message(remind)
                 WorkManager.getInstance(context).cancelWorkById(remind.id)
+                for (conditional in conditionals) {
+                    WorkManager.getInstance(context).cancelWorkById(conditional.id)
+                }
                 conditionals.forEach{c -> repo.removeConditional(c.id)}
                 repo.removeRemind(remind.id)
             }

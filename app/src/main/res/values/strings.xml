@@ -8,4 +8,5 @@
     <string name="PickTime">Pick a Time</string>
     <string name="selectcontact">Select Contact</string>
     <string name="currentcontact">Current Contact: %s</string>
+    <string name="deleteallentries">Delete All Entries</string>
 </resources>

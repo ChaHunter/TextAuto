@@ -37,6 +37,8 @@ interface DAO {
     @Query("Delete FROM Conditional")
     fun deleteConditional()
 
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addConditional(condtional: Conditional)
 

@@ -1,7 +1,11 @@
 package edu.msoe.textauto
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -10,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.WorkManager
 import edu.msoe.textauto.ConditionFragments.Conditional
 import edu.msoe.textauto.DataBase.TextRepository
 
@@ -28,12 +33,18 @@ class MainFragment : Fragment() {
         }
     private val dataViewModel : TextViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = MainscreenBinding.inflate(inflater, container, false)
+
         binding.TextViews.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         return binding.root
 
@@ -60,4 +71,41 @@ class MainFragment : Fragment() {
             )
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.delete) {
+            CoroutineScope(Dispatchers.IO).launch {
+
+                val reminds = dataViewModel.getRepository().getReminds()
+                val size = reminds.size
+                reminds.forEach { r ->
+                    context?.let { deleteRemind(r, it) }
+                }
+                withContext(Dispatchers.Main) {
+                    binding.TextViews.adapter?.notifyItemRangeRemoved(0, size)
+                }
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun deleteRemind(remind: Remind, context: Context){
+        CoroutineScope(Dispatchers.IO).launch {
+            val conditions = dataViewModel.getRepository().getConditionalFromRemind(remind.id)
+
+            WorkManager.getInstance(context).cancelWorkById(remind.id)
+            for (conditional in conditions) {
+
+                WorkManager.getInstance(context).cancelWorkById(conditional.id)
+            }
+            conditions.forEach { c -> dataViewModel.getRepository().removeConditional(c.id) }
+            dataViewModel.getRepository().removeRemind(remind.id)
+        }
+    }
+
 }

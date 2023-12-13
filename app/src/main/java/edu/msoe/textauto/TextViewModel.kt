@@ -9,4 +9,10 @@ class TextViewModel : ViewModel() {
     fun getRepository(): TextRepository {
         return repository
     }
+
+
+
+    suspend fun deleteAllData() {
+        repository.removeAll()
+    }
 }

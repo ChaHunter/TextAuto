@@ -53,4 +53,6 @@ class TextRepository private constructor(context: Context) {
     suspend fun addConditional(conditional : Conditional) = database.classDao().addConditional(conditional)
 
     suspend fun removeConditional(id: UUID) = database.classDao().deleteConditional(id)
+
+    suspend fun removeAll() = run { database.classDao().deleteConditional(); database.classDao().deleteRemind() }
 }

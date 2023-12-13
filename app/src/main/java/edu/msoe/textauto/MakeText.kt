@@ -132,6 +132,7 @@ class MakeText : Fragment() {
                             if (cursor.moveToFirst()){
                                 //val index = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
                                 rPhoneNumber =cursor.getString(0)
+                                binding.contactselect.text = rPhoneNumber
                                 Log.println(Log.INFO,"Working","obtained phone")
                             }
 
