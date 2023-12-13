@@ -12,6 +12,10 @@ import edu.msoe.textauto.DataBase.TextRepository
 import java.util.Calendar
 import java.util.UUID
 
+/**
+ * Worker class that actually checks all the conditions and then sends
+ * the text.
+ */
 class PollWorker (
     private val context: Context,
     workerParameters: WorkerParameters

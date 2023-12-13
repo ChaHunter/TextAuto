@@ -32,6 +32,9 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
+/**
+ * Fragment class for the make text screen
+ */
 class MakeText : Fragment() {
 
     private var _binding: AddTextBinding? = null
@@ -115,6 +118,9 @@ class MakeText : Fragment() {
 
     }
 
+    /**
+     * The code that actually get's the contacts and returns a result
+     */
     lateinit var rPhoneNumber : String
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -133,15 +139,15 @@ class MakeText : Fragment() {
                                 //val index = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
                                 rPhoneNumber =cursor.getString(0)
                                 binding.contactselect.text = rPhoneNumber
-                                Log.println(Log.INFO,"Working","obtained phone")
+                                //Log.println(Log.INFO,"Working","obtained phone")
                             }
 
                         }
                     }
-                    Log.println(Log.INFO,"Working","Working")
+                    //Log.println(Log.INFO,"Working","Working")
                 }
             }
-            Log.println(Log.INFO,"Working","Working")
+            //Log.println(Log.INFO,"Working","Working")
         }
     }
 

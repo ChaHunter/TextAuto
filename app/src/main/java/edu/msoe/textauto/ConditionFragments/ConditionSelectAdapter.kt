@@ -10,7 +10,7 @@ import java.util.UUID
 
 
 /**
- * ViewHolder for Students recycler items
+ * ViewHolder for condition categories
  */
 class  ConditionSelectViewHolder (
     private val binding: ConditionSelectRecyclerViewBinding
@@ -29,7 +29,7 @@ class  ConditionSelectViewHolder (
 }
 
 /**
- * Adapter class for students
+ * Adapter class for condition categories
  */
 class ConditionSelectAdapter(val id : UUID,
                              val param: (NavDirections) -> Unit

@@ -46,10 +46,10 @@ class MainTextViewHolder (
             //Log.println(Log.ASSERT, "Button", "Button Clicked")
             if (binding.recyclerView.visibility == View.GONE) {
                 binding.recyclerView.visibility = View.VISIBLE
-                Log.println(Log.ASSERT, "Button", "Button to visible")
+                //Log.println(Log.ASSERT, "Button", "Button to visible")
             } else if (binding.recyclerView.visibility == View.VISIBLE){
                 binding.recyclerView.visibility = View.GONE
-                Log.println(Log.ASSERT, "Button", "Button to Gone")
+                //Log.println(Log.ASSERT, "Button", "Button to Gone")
             }
         }
     }

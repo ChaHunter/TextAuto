@@ -14,7 +14,7 @@ import edu.msoe.textauto.databinding.ConditionalRecyclerViewBinding
 
 
 /**
- * ViewHolder for Students recycler items
+ * ViewHolder for Conditions
  */
 class ConditionalViewHolder (
     private val binding: ConditionalRecyclerViewBinding): RecyclerView.ViewHolder(binding.root) {
@@ -29,7 +29,7 @@ class ConditionalViewHolder (
 }
 
 /**
- * Adapter class for students
+ * Adapter for conditions
  */
 class ConditionalAdapter(
     private val conditions: List<Conditional>

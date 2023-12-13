@@ -10,6 +10,9 @@ import java.util.Calendar
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
+/**
+ * Constant class for conditions. Made to allow for easy new conditions.
+ */
 enum class ConditionCategory(val outName: String,
                              val description: String,
                              val fragmentLocation: (UUID) -> NavDirections
@@ -24,6 +27,10 @@ enum class ConditionCategory(val outName: String,
 
     companion object{
         //Not sure to use the strategy pattern here or not.
+
+        /**
+         * Get's the specific description for the type of category.
+         */
         fun getSpecificDescription(c :Conditional): String{
             when(c.conditionName){
                 //time

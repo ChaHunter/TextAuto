@@ -19,6 +19,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
 
+/**
+ * Fragment for selecting what condition you want to have.
+ */
 class SelectConditionFragment: Fragment() {
     private var _binding: ConditionSelectViewBinding? = null
     private val binding

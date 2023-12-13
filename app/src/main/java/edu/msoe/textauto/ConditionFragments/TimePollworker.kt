@@ -9,6 +9,9 @@ import java.util.Calendar
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
+/**
+ * Main Poll worker for Time Condition
+ */
 class TimePollWorker(
     private val context: Context,
     workerParameters: WorkerParameters

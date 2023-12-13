@@ -18,6 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
+/**
+ * SMS receiver for the received message condition.
+ */
 class SmsReceiver : BroadcastReceiver() {
     companion object {
         val SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED"

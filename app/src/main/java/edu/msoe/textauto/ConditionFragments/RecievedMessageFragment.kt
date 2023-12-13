@@ -24,6 +24,9 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.UUID
 
+/**
+ * Fragment for getting information about the Recieved message category.
+ */
 class RecievedMessageFragment: Fragment() {
     private var _binding: ConditionRecieveMessageBinding? = null
     private val binding

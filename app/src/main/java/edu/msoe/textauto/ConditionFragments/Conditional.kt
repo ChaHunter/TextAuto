@@ -4,6 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.UUID
 
+/**
+ * Data class for conditions
+ */
 @Entity
 data class Conditional (
     @PrimaryKey

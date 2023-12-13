@@ -26,6 +26,10 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.UUID
 
+/**
+ * Time fragment for selecting conditions for what time you want
+ * to automatically text at.
+ */
 class TimeFragment : Fragment(){
     private var _binding: ConditionFragmentTimeBinding? = null
     private val binding
@@ -97,6 +101,9 @@ class TimeFragment : Fragment(){
 
 }
 
+/**
+ * Time picker that gets the hour that you want
+ */
 class TimePickerFragment(val c : Calendar) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return TimePickerDialog(activity, this, c.get(Calendar.HOUR_OF_DAY),
@@ -117,6 +124,9 @@ class TimePickerFragment(val c : Calendar) : DialogFragment(), TimePickerDialog.
     }
 }
 
+/**
+ * Time picker that gets the day/date that you want.
+ */
 class DatePickerFragment(val c: Calendar) : DialogFragment(), DatePickerDialog.OnDateSetListener {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 

@@ -8,6 +8,9 @@ import edu.msoe.textauto.ConditionFragments.Conditional
 import edu.msoe.textauto.databinding.ConditionDetailRecyclerViewBinding
 
 
+/**
+ * Viewholder for the conditions with extra details to be had
+ */
 class MakeTextConditionRecyclerViewViewHolder(
     private val binding: ConditionDetailRecyclerViewBinding): RecyclerView.ViewHolder(binding.root) {
     fun bind(
