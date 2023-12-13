@@ -6,4 +6,6 @@
     <string name="AddConditionButton">Add a Condition</string>
     <string name="PickDate">Pick a Date</string>
     <string name="PickTime">Pick a Time</string>
+    <string name="selectcontact">Select Contact</string>
+    <string name="currentcontact">Current Contact: %s</string>
 </resources>

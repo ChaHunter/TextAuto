@@ -19,7 +19,7 @@ enum class ConditionCategory(val outName: String,
 
     ),
     RecievedMessage("Recieved Message", "Triggers when you recieve a message",
-        fun(id): NavDirections{return SelectConditionFragmentDirections.actionSelectConditionFragmentToTimeFragment(id) }
+        fun(id): NavDirections{return SelectConditionFragmentDirections.actionSelectConditionFragmentToRecievedMessageFragment(id) }
     );
 
     companion object{

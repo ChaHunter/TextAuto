@@ -38,11 +38,24 @@
         <argument
             android:name="id"
             app:argType="java.util.UUID" />
+        <action
+            android:id="@+id/action_selectConditionFragment_to_recievedMessageFragment"
+            app:destination="@id/recievedMessageFragment"
+            app:popUpTo="@id/makeText"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/timeFragment"
         android:name="edu.msoe.textauto.ConditionFragments.TimeFragment"
         android:label="TimeFragment" >
+        <argument
+            android:name="id"
+            app:argType="java.util.UUID" />
+    </fragment>
+    <fragment
+        android:id="@+id/recievedMessageFragment"
+        android:name="edu.msoe.textauto.ConditionFragments.RecievedMessageFragment"
+        android:label="RecievedMessageFragment" >
         <argument
             android:name="id"
             app:argType="java.util.UUID" />

@@ -22,6 +22,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import androidx.work.workDataOf
+import edu.msoe.textauto.ConditionFragments.ConditionCategory
 import edu.msoe.textauto.ConditionFragments.Conditional
 import edu.msoe.textauto.ConditionFragments.TimeFragmentArgs
 import edu.msoe.textauto.ConditionFragments.TimePollWorker
@@ -101,9 +102,14 @@ class MakeText : Fragment() {
         val workrequest = OneTimeWorkRequest.Builder(PollWorker::class.java).setInputData(
             workDataOf("remindid" to remind.id.toString())).addTag(remind.id.toString()).build()
         for (condition in conditions) {
-            val conditionRequest = TimePollWorker.build(condition).setInputData(
-            workDataOf("id" to condition.id.toString())).addTag(condition.id.toString()).build()
-            WorkManager.getInstance(requireContext()).beginWith(conditionRequest).then(workrequest).enqueue()
+            //If I continue this app. Definetly will change this to be better
+            if (condition.conditionName == ConditionCategory.Time) {
+                val conditionRequest = TimePollWorker.build(condition).setInputData(
+                    workDataOf("id" to condition.id.toString())
+                ).addTag(condition.id.toString()).build()
+                WorkManager.getInstance(requireContext()).beginWith(conditionRequest)
+                    .then(workrequest).enqueue()
+            }
         }
 
 
